@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  backend
+
+  Sample SAM Template for backend
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+    Runtime: python3.9
+    Architectures:
+      - x86_64
+    Layers:
+      - !Ref SharedLayer
+
+Resources:
+
+  TodoAppTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: 'TodoAppTable'
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: shared-layer
+      Description: Shared layer for functions to share
+      ContentUri: lambda_layers/shared_layer
+      CompatibleRuntimes:
+        - python3.9
+
+  PostTodoListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/post_todo_list/
+      Handler: app.post_todo_list
+      Events:
+        PostTodoList:
+          Type: Api
+          Properties:
+            Path: /todo-list
+            Method: post
+
+  GetTodoListsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/get_todo_lists/
+      Handler: app.get_todo_lists
+      Events:
+        GetTodoLists:
+          Type: Api
+          Properties:
+            Path: /todo-list
+            Method: get
+
+  GetTodoListFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/get_todo_list/
+      Handler: app.get_todo_list
+      Events:
+        GetTodoList:
+          Type: Api
+          Properties:
+            Path: /todo-list/{listId}
+            Method: get
+
+  PostTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/post_todo/
+      Handler: app.post_todo
+      Events:
+        PostTodo:
+          Type: Api
+          Properties:
+            Path: /todo-list/{listId}/todo
+            Method: post
+
+  PatchTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/patch_todo/
+      Handler: app.patch_todo
+      Events:
+        PatchTodo:
+          Type: Api
+          Properties:
+            Path: /todo-list/{listId}/todo/{todoId}
+            Method: patch
+
+Outputs:
+  TodoApi:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todo/"
