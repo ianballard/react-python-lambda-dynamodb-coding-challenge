@@ -21,5 +21,3 @@ export const getTodoList = async (listId: string, lastEvaluatedKey: string | nul
     const response = await fetch(`${API_BASE_URL}/todo-list/${listId}/todo`);
     return response.json();
 };
-
-// Add more functions as needed

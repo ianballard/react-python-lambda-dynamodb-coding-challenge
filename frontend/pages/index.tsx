@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
+import type {NextPage} from 'next';
 import TodoList from '../components/TodoLists';
+import '../app/globals.css'
 
 const Index: NextPage = () => {
     return (
-        <div>
-            <h1>Todo Lists</h1>
-            <TodoList />
+        <div className={'pt-5'}>
+            <TodoList/>
         </div>
     );
 };

@@ -33,7 +33,7 @@ const TodoListPage: React.FC = () => {
     if (!items) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className={'pt-5'}>
             <TodoItems items={items}/>
         </div>
     );
