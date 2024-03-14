@@ -12,8 +12,8 @@ const TodoLists: React.FC = () => {
     useEffect(() => {
         const fetchLists = async () => {
             const data: TodoListsApiResponse = await getTodoLists(); // Adjust this function based on how you're fetching data
-            setItems(data.Items);
-            setLastEvaluatedKey(data.LastEvaluatedKey);
+            setItems(data.items);
+            setLastEvaluatedKey(data.last_evaluated_key);
         };
 
         fetchLists();
@@ -23,20 +23,21 @@ const TodoLists: React.FC = () => {
     const loadMoreItems = async () => {
         if (lastEvaluatedKey) {
             const data: TodoListsApiResponse = await getTodoLists(); // Adjust to pass lastEvaluatedKey as a parameter
-            setItems((prevItems) => [...prevItems, ...data.Items]);
-            setLastEvaluatedKey(data.LastEvaluatedKey);
+            setItems((prevItems) => [...prevItems, ...data.items]);
+            setLastEvaluatedKey(data.last_evaluated_key);
         }
     };
 
     const handleListClick = (sk: string) => {
         // Navigate to the list items page for the clicked list
-        router.push(`/${sk}`); // Assuming your page to display list items is named [sk].tsx
+        const id = sk.split("#")[1]
+        router.push(`/${id}`); // Assuming your page to display list items is named [sk].tsx
     };
 
     return (
         <div>
             {items.map((item) => (
-                <button key={item.sk} onClick={() => handleListClick(item.sk)}>{item.name}</button>
+                <div><button key={item.sk} onClick={() => handleListClick(item.sk)}>{item.name}</button></div>
             ))}
             {lastEvaluatedKey && (
                 <button onClick={loadMoreItems}>Load More</button>

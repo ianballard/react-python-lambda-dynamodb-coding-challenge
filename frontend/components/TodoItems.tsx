@@ -10,7 +10,7 @@ const TodoItems: React.FC<TodoItemsProps> = ({ items }) => {
     return (
         <div>
             {items.map(item => (
-                <div key={item.sk}>{item.name}</div>
+                <div key={item.sk}>{item.title}</div>
             ))}
         </div>
     );

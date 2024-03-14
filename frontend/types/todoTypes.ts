@@ -7,6 +7,6 @@ export interface TodoListItem {
 export interface TodoItem {
     pk: string;
     sk: string;
-    name: string;
+    title: string;
     is_completed: boolean;
 }
