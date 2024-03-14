@@ -8,7 +8,7 @@ const TodoListPage: React.FC = () => {
     const [items, setItems] = useState<TodoItem[]>([]);
     const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
     const router = useRouter();
-    const { listId } = router.query; // Assuming you're passing listId in the URL
+    const {listId} = router.query; // Assuming you're passing listId in the URL
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -34,7 +34,7 @@ const TodoListPage: React.FC = () => {
 
     return (
         <div>
-            <TodoItems items={items} />
+            <TodoItems items={items}/>
         </div>
     );
 };
