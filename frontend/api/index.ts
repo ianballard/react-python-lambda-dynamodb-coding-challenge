@@ -17,7 +17,7 @@ export interface TodoListApiResponse {
     last_evaluated_key: string | null;
 }
 
-export const getTodoList = async (listId: string, lastEvaluatedKey: string): Promise<TodoListApiResponse> => {
+export const getTodoList = async (listId: string, lastEvaluatedKey: string | null): Promise<TodoListApiResponse> => {
     const response = await fetch(`${API_BASE_URL}/todo-list/${listId}/todo`);
     return response.json();
 };
