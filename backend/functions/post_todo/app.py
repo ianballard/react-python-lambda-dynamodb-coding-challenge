@@ -1,14 +1,25 @@
 import json
-from response import Response
-from dynamodb_client import DynamoDBClient
+
+from dynamodb.entity.todo.todo_entity import TodoEntity
+from request.request import api
+from request.response import Response
+from service.todo.todo_service import TodoService
 
 
+class PostTodoRequest:
+
+    def __init__(self, event):
+        self.list_id = event["pathParameters"]["listId"]
+        self.new_todo = json.loads(event["body"])
+
+
+@api()
 def post_todo(event, context):
-    list_id = event["pathParameters"]["listId"]
-    todo_details = json.loads(event["body"])
 
-    todo_list = DynamoDBClient().create_todo_item(
-        list_id=list_id, todo_details=todo_details
-    )
+    post_todo_request = PostTodoRequest(event)
 
-    return Response.build_response(201, todo_list)
+    todo = TodoEntity.from_dict(post_todo_request.new_todo)
+    todo.pk = post_todo_request.list_id
+    todo = TodoService.put_todo(todo=todo)
+
+    return Response.build_response(201, body=todo.to_dict())

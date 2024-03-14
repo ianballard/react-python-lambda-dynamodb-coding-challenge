@@ -7,7 +7,7 @@ Description: >
 
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 10
     MemorySize: 128
     Runtime: python3.9
     Architectures:
@@ -66,16 +66,16 @@ Resources:
             Path: /todo-list
             Method: get
 
-  GetTodoListFunction:
+  GetAllTodoByListIdFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/get_todo_list/
-      Handler: app.get_todo_list
+      CodeUri: functions/get_all_todo_by_list_id/
+      Handler: app.get_all_todo_by_list_id
       Events:
         GetTodoList:
           Type: Api
           Properties:
-            Path: /todo-list/{listId}
+            Path: /todo-list/{listId}/todo
             Method: get
 
   PostTodoFunction:
