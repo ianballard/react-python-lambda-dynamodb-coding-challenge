@@ -1,6 +1,6 @@
 import json
 
-from request.request import api
+from request.request import api_endpoint
 from request.response import Response
 from service.todo.todo_service import TodoService
 
@@ -13,11 +13,11 @@ class PatchTodoRequest:
         self.updates = json.loads(event["body"])
 
 
-@api()
+@api_endpoint()
 def patch_todo(event, context):
     patch_todo_request = PatchTodoRequest(event)
 
-    TodoService.update_todo(
+    TodoService().update_todo(
         list_id=patch_todo_request.list_id,
         todo_id=patch_todo_request.todo_id,
         updates=patch_todo_request.updates,

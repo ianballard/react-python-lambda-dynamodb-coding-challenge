@@ -1,6 +1,6 @@
 from dynamodb.entity.todo_list.todo_list_entity import TodoListEntity
 from dynamodb.entity.todo_list.todo_list_entity_repo import TodoListQueryResponse
-from request.request import api
+from request.request import api_endpoint
 from request.response import Response, ResponseAttribute
 from service.todo_list.todo_list_service import TodoListService
 
@@ -20,11 +20,11 @@ class GetTodoListsResponseBody:
         }
 
 
-@api()
+@api_endpoint()
 def get_todo_lists(event, context):
 
     todo_list_query_response: TodoListQueryResponse = (
-        TodoListService.find_all_todo_lists()
+        TodoListService().find_all_todo_lists()
     )
     todo_list_api_response_body = GetTodoListsResponseBody(
         todo_list_query_response=todo_list_query_response
