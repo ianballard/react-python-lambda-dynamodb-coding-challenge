@@ -1,11 +1,11 @@
 import type {NextPage} from 'next';
-import TodoList from '../components/TodoLists';
-import '../app/globals.css'
+import TodoListsContainer from "@/containers/TodoListsContainer";
+import "../app/globals.css";
 
 const Index: NextPage = () => {
     return (
         <div className={'pt-5'}>
-            <TodoList/>
+            <TodoListsContainer/>
         </div>
     );
 };

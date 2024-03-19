@@ -8,7 +8,10 @@ from service.todo.todo_service import TodoService
 class GetAllTodoByListIdRequest:
 
     def __init__(self, event):
+        query_params = event["queryStringParameters"]
         self.list_id = event["pathParameters"]["listId"]
+        self.limit = int(query_params.get("limit", 1)) if query_params else 1
+        self.next_token = query_params.get("nextToken") if query_params else None
 
 
 class GetAllTodoByListIdResponseBody:
@@ -28,10 +31,15 @@ class GetAllTodoByListIdResponseBody:
 
 @api_endpoint()
 def get_all_todo_by_list_id(event, context):
-    list_id = GetAllTodoByListIdRequest(event).list_id
+    request = GetAllTodoByListIdRequest(event)
+    list_id = request.list_id
+    next_token = request.next_token
+    limit = request.limit
 
-    todo_list_query_response: TodoQueryResponse = (
-        TodoService().find_all_todo_by_list_id(list_id=list_id)
+    todo_list_query_response: (
+        TodoQueryResponse
+    ) = TodoService().find_all_todo_by_list_id(
+        list_id=list_id, next_token=next_token, limit=limit
     )
     todo_list_api_response_body = GetAllTodoByListIdResponseBody(
         todo_list_query_response=todo_list_query_response

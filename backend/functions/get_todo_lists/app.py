@@ -5,6 +5,14 @@ from request.response import Response, ResponseAttribute
 from service.todo_list.todo_list_service import TodoListService
 
 
+class GetTodoListsRequest:
+
+    def __init__(self, event):
+        query_params = event["queryStringParameters"]
+        self.limit = int(query_params.get("limit", 1)) if query_params else 1
+        self.next_token = query_params.get("nextToken") if query_params else None
+
+
 class GetTodoListsResponseBody:
 
     def __init__(self, todo_list_query_response: TodoListQueryResponse):
@@ -22,9 +30,12 @@ class GetTodoListsResponseBody:
 
 @api_endpoint()
 def get_todo_lists(event, context):
+    request = GetTodoListsRequest(event)
 
-    todo_list_query_response: TodoListQueryResponse = (
-        TodoListService().find_all_todo_lists()
+    todo_list_query_response: (
+        TodoListQueryResponse
+    ) = TodoListService().find_all_todo_lists(
+        next_token=request.next_token, limit=request.limit
     )
     todo_list_api_response_body = GetTodoListsResponseBody(
         todo_list_query_response=todo_list_query_response

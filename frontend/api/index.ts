@@ -1,23 +1,28 @@
-import {TodoItem, TodoListItem} from "@/types/todoTypes";
+import {fetchApi} from './utils';
+import {TodoListApiResponse, TodoListsApiResponse} from "@/types/todoTypes";
 
-const API_BASE_URL = 'http://127.0.0.1:2999';
-
-export interface TodoListsApiResponse {
-    items: TodoListItem[];
-    last_evaluated_key: string | null;
-}
-
-export const getTodoLists = async (): Promise<TodoListsApiResponse> => {
-    const response = await fetch(`${API_BASE_URL}/todo-list`);
-    return response.json();
+export const fetchTodoLists = (lastEvaluatedKey: string | null): Promise<TodoListsApiResponse> => {
+    const queryParams = {
+        limit: 1,
+    }
+    if (lastEvaluatedKey) {
+        // @ts-ignore
+        queryParams["nextToken"] = lastEvaluatedKey;
+    }
+    return fetchApi('todo-list', {
+        queryParams
+    });
 };
 
-export interface TodoListApiResponse {
-    items: TodoItem[];
-    last_evaluated_key: string | null;
-}
-
-export const getTodoList = async (listId: string, lastEvaluatedKey: string | null): Promise<TodoListApiResponse> => {
-    const response = await fetch(`${API_BASE_URL}/todo-list/${listId}/todo`);
-    return response.json();
+export const fetchTodoList = (listId: string, lastEvaluatedKey: string | null): Promise<TodoListApiResponse> => {
+    const queryParams = {
+        limit: 1
+    }
+    if (lastEvaluatedKey) {
+        // @ts-ignore
+        queryParams["nextToken"] = lastEvaluatedKey;
+    }
+    return fetchApi(`todo-list/${listId}/todo`, {
+        queryParams
+    });
 };
