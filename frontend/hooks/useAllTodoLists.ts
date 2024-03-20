@@ -30,5 +30,5 @@ export const useAllTodoLists = () => {
         fetchLists();
     }, []);
 
-    return {items, lastEvaluatedKey, loading, error, fetchMore: () => fetchLists(lastEvaluatedKey)};
+    return {items, lastEvaluatedKey, loading, error, fetchMore: () => fetchLists(lastEvaluatedKey), setItems};
 };

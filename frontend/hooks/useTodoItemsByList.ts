@@ -26,5 +26,5 @@ export const useTodoItemsByList = (listId: string) => {
         fetchListDetails();
     }, [listId]);
 
-    return {items, lastEvaluatedKey, loading, error, fetchMore: () => fetchListDetails(lastEvaluatedKey)};
+    return {items, lastEvaluatedKey, loading, error, fetchMore: () => fetchListDetails(lastEvaluatedKey), setItems};
 };

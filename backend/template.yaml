@@ -42,6 +42,18 @@ Resources:
       CompatibleRuntimes:
         - python3.9
 
+  CORSFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/cors/
+      Handler: app.cors
+      Events:
+        CORS:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: options
+
   PostTodoListFunction:
     Type: AWS::Serverless::Function
     Properties:

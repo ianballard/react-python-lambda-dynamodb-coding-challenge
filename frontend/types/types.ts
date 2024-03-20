@@ -2,6 +2,7 @@ export interface TodoAppRecordKey {
     pk: string;
     sk: string;
 }
+
 export interface TodoListItem {
     pk: string;
     sk: string;
@@ -18,7 +19,7 @@ export interface TodoItem {
     pk: string;
     sk: string;
     title: string;
-    is_completed: boolean;
+    completed: boolean;
 }
 
 
