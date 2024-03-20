@@ -9,7 +9,7 @@ class GetTodoListsRequest:
 
     def __init__(self, event):
         query_params = event["queryStringParameters"]
-        self.limit = int(query_params.get("limit", 1)) if query_params else 1
+        self.limit = int(query_params.get("limit", 10)) if query_params else 10
         self.next_token = query_params.get("nextToken") if query_params else None
 
 
