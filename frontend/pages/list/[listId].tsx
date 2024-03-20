@@ -2,7 +2,7 @@ import React from "react";
 import {useRouter} from "next/router";
 import {NextPage} from "next";
 import TodoItemsByListContainer from "@/containers/TodoItemsByListContainer";
-import "../app/globals.css";
+import "../../app/globals.css";
 
 const TodoListPage: NextPage = () => {
 

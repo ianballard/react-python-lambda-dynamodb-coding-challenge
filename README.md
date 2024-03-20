@@ -18,11 +18,36 @@ This challenge is not just about coding but understanding and working within a d
 
 ## Feature Request
 
-[//]: # (Describe the feature request here. Include what the feature is, why it's needed, and what impact it will have on the application. Be as detailed as necessary to provide a clear understanding of the requirements.)
+### Implement an Activity Feed for Todo Item Creations and Updates
+
+```
+As a user,
+I want an activity feed that shows all creations and updates of todo items,
+So that I can view all activities across todo lists in one place.
+```
+
+**Acceptance Criteria**
+
+1. **Activity Feed Visibility:**
+    Given I am a user of the todo application,
+    When I navigate to the designated activity feed page,
+    Then I should see an activity feed displaying all recent activities, including creations and updates of todo items across all lists.
+
+2. **Activity Details:**
+    Given I am viewing the activity feed,
+    Each activity entry should include the todo item's title, the type of activity (creation or update), and the date and time of the activity.
+
+3. **Chronological Order:**
+    Given new activities are occurring,
+    When I am on the activity feed page,
+    Then the activities should be listed in reverse chronological order, with the most recent activities appearing first.
 
 ### Your Task
 
-[//]: # (Outline what the candidate needs to do. Specify any requirements like coding standards, testing expectations, and documentation.)
+- Implement `FeedContainer.tsx` and any/all necessary functions and components
+- Implement any/all necessary backend endpoints, functions, and data model updates
+- Use existing utils, helpers, and design patterns to build the solution.
+- Consider the impact on performance and the user experience, particularly with scale and assume there may be 1000s or more lists and items.
 
 ## Submission Guidelines
 

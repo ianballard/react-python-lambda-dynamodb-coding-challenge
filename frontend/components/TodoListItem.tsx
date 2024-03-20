@@ -11,7 +11,7 @@ const TodoListItem: React.FC<TodoListItemComponentProps> = ({list}) => {
     const router = useRouter();
 
     const handleItemClick = (id: string) => {
-        router.push(`/${id}`);
+        router.push(`/list/${id}`);
     };
 
     const id = list.sk.split("#")[1];
