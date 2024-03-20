@@ -53,8 +53,6 @@ So that I can view all activities across todo lists in one place.
 
 - **Complete the Feature**: Implement the feature as described in the Feature Request section. Your code should align with the existing architecture and coding standards of the project.
 
-- **Open a Pull Request**: Once you've completed your feature, open a pull request against this repository. Include a comprehensive description of the changes you've made and any other relevant information.
-
 ## Evaluation Criteria
 
 Your submission will be evaluated based on the following criteria:
