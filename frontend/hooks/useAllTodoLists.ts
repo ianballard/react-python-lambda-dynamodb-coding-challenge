@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react';
-import {fetchTodoLists} from '@/api';
-import {TodoListItem} from '@/types/todoTypes';
+import {useEffect, useState} from "react";
+import {fetchAllTodoLists} from "@/api";
+import {TodoListItem} from "@/types/types";
 
-export const useTodoLists = () => {
+export const useAllTodoLists = () => {
     const [items, setItems] = useState<TodoListItem[]>([]);
     const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export const useTodoLists = () => {
     const fetchLists = async (key: string | null = null) => {
         setLoading(true);
         try {
-            const {items: newItems, last_evaluated_key} = await fetchTodoLists(key);
+            const {items: newItems, last_evaluated_key} = await fetchAllTodoLists(key);
             setItems(currentItems => [...currentItems, ...newItems]);
             const id = last_evaluated_key?.sk?.split("#")[1];
             setLastEvaluatedKey(id as string);
@@ -20,7 +20,7 @@ export const useTodoLists = () => {
             if (err instanceof Error) {
                 setError(err);
             } else {
-                setError(new Error('An unknown error occurred'));
+                setError(new Error("An unknown error occurred"));
             }
             setLoading(false);
         }
