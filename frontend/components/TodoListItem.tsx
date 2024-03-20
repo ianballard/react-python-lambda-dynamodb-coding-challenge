@@ -1,10 +1,10 @@
 import React from "react";
 import {useRouter} from "next/router";
-import {TodoListItem} from "@/types/types";
+import {TodoListItem as TodoList} from "@/types/types";
 
 
 interface TodoListItemComponentProps {
-    list: TodoListItem;
+    list: TodoList;
 }
 
 const TodoListItem: React.FC<TodoListItemComponentProps> = ({list}) => {

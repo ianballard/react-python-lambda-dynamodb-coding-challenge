@@ -1,18 +1,18 @@
-import {TodoItem} from "@/types/types";
+import {TodoItem as Todo} from "@/types/types";
 import React from "react";
 
 interface TodoItemComponentProps {
-    item: TodoItem;
+    item: Todo;
     markComplete: any;
 }
 
 const TodoItem: React.FC<TodoItemComponentProps> = ({item, markComplete}) => {
-    const handleItemClick = (item: TodoItem) => {
+    const handleItemClick = (item: Todo) => {
         markComplete(item);
     };
 
     const checked = item.completed ? true : undefined;
-    
+
     return (
         <div className={"flex items-center p-3 hover:bg-gray-100"}>
             <div className="text-sm font-medium text-black mr-2">
